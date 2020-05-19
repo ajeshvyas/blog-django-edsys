@@ -1,0 +1,22 @@
+{% extends  'bloggers/base.html' %}
+
+	{% block titleblock %}Home{% endblock %}
+
+	{% block classhome %}active{% endblock %}
+
+	{% block baseblock %}
+
+		{% load static %}
+
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-lg-6">
+				<h1 style="margin-top: 5%;margin-bottom: 5%" class="mainheading">Welcome to Blog</h1>
+			</div>
+			<img src="{% static 'img/main_blog.jpg' %}" style="width: 70%;">
+		</div>
+	</div>
+
+	{% endblock %}
+
+	

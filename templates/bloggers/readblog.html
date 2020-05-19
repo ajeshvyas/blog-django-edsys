@@ -1,0 +1,31 @@
+{% extends  'bloggers/base.html' %}
+
+  {% block titleblock %}Read Blog{% endblock %}
+
+  {% block classvb %}active{% endblock %}
+
+  {% block baseblock %}
+
+    {% load static %}
+
+      {% load crispy_forms_tags %}
+
+        <div class="container">
+
+          <div class="row text-center justify-content-center">
+            {% for i in data %}
+            <div class="col-lg-10" style="margin-top: 0%">
+              <h1 class="mt-4">{{ i.title }}</h1>
+              <p class="lead">by <a href="#">{{ i.author }}</a></p>
+              <hr>
+              <p>Posted on {{ i.upload_datetime }}</p>
+              <hr>
+              <img class="img-fluid rounded" src="{{ i.img.url }}" alt="{{ i.img }}">
+              <hr>
+              <p class="lead">{{ i.desc }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      {% endblock %}

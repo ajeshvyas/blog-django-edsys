@@ -1,0 +1,72 @@
+{% extends  'bloggers/base.html' %}
+
+	{% block titleblock %}View Blog{% endblock %}
+
+	{% block classvb %}active{% endblock %}
+
+	{% block baseblock %}
+
+		{% load static %}
+
+		<style type="text/css">
+			#description {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 4;
+				-webkit-box-orient: vertical;
+			}
+		</style>
+
+		<div class="container">
+
+			<div class="row text-center justify-content-center">
+
+				<div class="col-lg-6">
+					<h1 style="margin-top: 2.5%;margin-bottom: 5%" class="mainheading">View Blogs</h1>
+					{% if msg%}
+      <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>{{msg}}</strong>
+      </div>
+      {%endif%}
+				</div>
+			</div>
+			{% if data %}
+			{% for i in data %}
+
+			<div class="jumbotron text-center hoverable p-4">
+
+				<div class="row">
+
+					<div class="col-md-4 offset-md-1 mx-3 my-3">
+
+						<div class="view overlay">
+        					<img src="{{i.img.url}}" class="img-fluid" alt="{{i.img}}">
+        					<a><div class="mask rgba-white-slight"></div></a>
+      					</div>
+      				</div>
+
+    				<div class="col-md-7 text-md-left ml-3 mt-3">
+						<h4 class="h4 mb-4">{{i.title}}</h4>
+						<p class="font-weight-normal" id="description">{{i.desc}}</p>
+      					<p class="font-weight-normal">by <a><strong>{{i.author}}</strong></a>, Last Edited - <strong>{{ i.upload_datetime | timesince }} ago</strong></p>
+      					<form method="post" action="/viewblog/">
+      						{% csrf_token %}
+      						<input type="hidden" name="id" value="{{i.id}}">
+      						<a class="btn btn-primary" href="/read_blog/?id={{i.id}}"  style="background-color: #1f2138;color: white !important; border-color: #1f2138 !important">Read More</a>
+      						     
+      						{% if request.user.first_name|add:" "|add:request.user.last_name == i.author %}
+      						<button class="btn btn-danger">Delete Post</button>
+      						{% endif %}
+							<!-- <a class="btn btn-primary" href="/delete_post/{{i.id}}/"  style="background-color: #1f2138;color: white !important">Delete Blog</a> -->
+						</form>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			{% else %}
+				<h3 style="align-self: center;">No Posts added yet</h3>
+			{% endif %}
+		</div>
+	{% endblock %}

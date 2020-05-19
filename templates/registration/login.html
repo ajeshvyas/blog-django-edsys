@@ -1,0 +1,22 @@
+{% extends  'bloggers/base.html' %}
+
+	{% block titleblock %}Login{% endblock %}
+	{% block classlin %}active{% endblock %}
+
+	{% block baseblock %}
+	{% load crispy_forms_tags %}
+
+		{% load static %}
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-lg-6">
+				<form method="post">
+					{{ form | crispy }}
+					{%csrf_token%}
+					<input type="submit" value="Login" />
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
